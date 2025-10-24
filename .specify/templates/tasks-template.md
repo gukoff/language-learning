@@ -8,7 +8,7 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Tests are MANDATORY per project constitution (Testing Standards principle). All user stories MUST include unit, integration, and e2e tests following TDD methodology.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -79,7 +79,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 1 (MANDATORY - Constitution Requirements) ⚠️
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
@@ -105,7 +105,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 2 (MANDATORY - Constitution Requirements) ⚠️
 
 - [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
@@ -127,7 +127,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 3 (MANDATORY - Constitution Requirements) ⚠️
 
 - [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
@@ -148,14 +148,31 @@ Examples of foundational tasks (adjust based on your project):
 
 ## Phase N: Polish & Cross-Cutting Concerns
 
-**Purpose**: Improvements that affect multiple user stories
+**Purpose**: Constitution compliance and quality improvements that affect multiple user stories
 
+### Code Quality & Standards
+- [ ] TXXX [P] Code complexity analysis and refactoring (max 15 cyclomatic complexity)
+- [ ] TXXX [P] Linting and formatting enforcement across codebase
+- [ ] TXXX [P] Public API documentation updates
+- [ ] TXXX Code review checklist validation
+
+### Testing & Quality Assurance
+- [ ] TXXX Verify 85% code coverage requirement met
+- [ ] TXXX [P] Additional unit tests for edge cases
+- [ ] TXXX Integration test coverage validation
+- [ ] TXXX End-to-end test execution for critical user journeys
+
+### Performance & Accessibility
+- [ ] TXXX Performance benchmarking (load times, API response times)
+- [ ] TXXX Memory usage profiling and optimization
+- [ ] TXXX [P] Accessibility testing (WCAG 2.1 AA compliance)
+- [ ] TXXX [P] Cross-platform consistency validation
+
+### Documentation & Compliance
 - [ ] TXXX [P] Documentation updates in docs/
-- [ ] TXXX Code cleanup and refactoring
-- [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
+- [ ] TXXX [P] Architecture Decision Records (ADR) updates
 - [ ] TXXX Run quickstart.md validation
+- [ ] TXXX Constitution compliance verification
 
 ---
 

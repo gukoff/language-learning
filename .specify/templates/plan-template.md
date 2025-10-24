@@ -17,12 +17,12 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Language/Version**: [e.g., Python 3.12]  
+**Primary Dependencies**: [e.g., FastAPI]  
+**Storage**: [in the beginning do not use a database]  
+**Testing**: [e.g., pytest]  
 **Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
+**Project Type**: [web]  
 **Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
 **Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
@@ -31,7 +31,30 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**Code Quality First**:
+- [ ] Code complexity limits defined (max 15 cyclomatic complexity)
+- [ ] Linting and formatting tools specified
+- [ ] Code review process documented
+- [ ] Public API documentation requirements identified
+
+**Testing Standards (NON-NEGOTIABLE)**:
+- [ ] Test strategy covers unit (85% coverage), integration, and e2e tests
+- [ ] TDD approach confirmed for new features
+- [ ] Test automation integrated into CI/CD pipeline
+- [ ] Critical user journey tests identified
+
+**User Experience Consistency**:
+- [ ] Design system and style guide referenced
+- [ ] Accessibility requirements specified (WCAG 2.1 AA)
+- [ ] Cross-platform consistency requirements defined
+- [ ] Error messaging and feedback patterns documented
+
+**Performance Requirements**:
+- [ ] Load time targets specified (< 2s initial, < 500ms navigation)
+- [ ] API response time targets defined (< 300ms p95)
+- [ ] Memory usage limits set (< 100MB mobile peak)
+- [ ] Offline capability requirements documented
+- [ ] Performance monitoring plan included
 
 ## Project Structure
 
