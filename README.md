@@ -9,6 +9,7 @@ This project implements a complete flashcard learning system following specifica
 ### ✅ Implemented Features
 
 #### User Story 1: Create Flashcards
+
 - ✅ Interactive flashcard creation form
 - ✅ Front/back content with tags
 - ✅ Form validation and error handling
@@ -16,6 +17,7 @@ This project implements a complete flashcard learning system following specifica
 - ✅ Persistent storage (JSON-based)
 
 #### User Story 2: Study Flashcards
+
 - ✅ Interactive study sessions
 - ✅ Show/hide flashcard answers
 - ✅ Mark responses as correct/incorrect
@@ -23,6 +25,7 @@ This project implements a complete flashcard learning system following specifica
 - ✅ Session completion with results
 
 #### Constitutional Compliance
+
 - ✅ Code Quality: Clean, readable, well-documented
 - ✅ Testing: 85%+ coverage requirement with TDD methodology
 - ✅ User Experience: Accessible (WCAG 2.1 AA), responsive design
@@ -31,18 +34,21 @@ This project implements a complete flashcard learning system following specifica
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Python 3.12+
 - Modern web browser
 
 ### Installation & Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd learn_a_language
    ```
 
 2. **Set up Python environment**
+
    ```bash
    python -m venv .venv
    .venv\Scripts\activate  # Windows
@@ -50,6 +56,7 @@ This project implements a complete flashcard learning system following specifica
    ```
 
 3. **Install dependencies**
+
    ```bash
    cd backend
    pip install -r requirements.txt
@@ -58,23 +65,27 @@ This project implements a complete flashcard learning system following specifica
 ### Running the Application
 
 #### Method 1: Using the Startup Script
+
 ```bash
 .\start-mvp.ps1
 ```
 
 #### Method 2: Manual Start
+
 **Terminal 1 - Backend:**
 ```bash
 python -m uvicorn simple_server:app --reload --port 8000
 ```
 
 **Terminal 2 - Frontend:**
+
 ```bash
 cd frontend
 python -m http.server 3000
 ```
 
 ### Access the Application
+
 - **Frontend:** http://localhost:3000
 - **Backend API:** http://localhost:8000/docs
 - **Health Check:** http://localhost:8000/health
@@ -82,6 +93,7 @@ python -m http.server 3000
 ## 🧪 Testing
 
 ### Automated Testing
+
 ```bash
 # Run User Story 2 tests
 .\test-user-story-2.ps1
@@ -92,6 +104,7 @@ python -m pytest tests/ -v
 ```
 
 ### Manual Testing Flow
+
 1. Open http://localhost:3000
 2. **Create Flashcards:**
    - Click "Create" → Add flashcard content → Save
@@ -125,24 +138,28 @@ learn_a_language/
 ## 🛠 Development
 
 ### Architecture Principles
+
 - **Constitution-Driven:** All development follows established quality principles
 - **TDD Methodology:** Tests written before implementation
 - **Component-Based:** Modular, reusable frontend components
 - **API-First:** RESTful backend with comprehensive documentation
 
 ### Backend Stack
+
 - **FastAPI:** Modern async Python web framework
 - **Pydantic:** Data validation and serialization
 - **Uvicorn:** ASGI server
 - **JSON Storage:** File-based persistence (easily upgradable to database)
 
 ### Frontend Stack
+
 - **Vanilla JavaScript:** No framework dependencies
 - **ES2020 Modules:** Modern JavaScript features
 - **CSS3:** Responsive design with custom properties
 - **Progressive Enhancement:** Accessible by default
 
 ### Key Features
+
 - 📱 **Responsive Design:** Works on desktop and mobile
 - ♿ **Accessibility:** WCAG 2.1 AA compliant
 - 🚀 **Performance:** Fast load times and smooth interactions  
@@ -160,12 +177,14 @@ learn_a_language/
 ## 🔮 Roadmap
 
 ### Next: User Story 3 - Manage Collection
+
 - View all flashcards in collection
 - Edit existing flashcards
 - Delete flashcards with confirmation
 - Organize by tags and categories
 
 ### Future Enhancements
+
 - Database integration (PostgreSQL/SQLite)
 - User authentication and accounts
 - Spaced repetition algorithm
