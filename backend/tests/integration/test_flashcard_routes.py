@@ -3,12 +3,8 @@ Integration tests for flashcard creation API routes.
 Following TDD methodology - these tests should FAIL initially.
 """
 
-import pytest
 from fastapi.testclient import TestClient
-import json
 import tempfile
-import os
-from pathlib import Path
 
 from src.main import app
 from src.storage.file_storage import FileStorageService
@@ -21,11 +17,11 @@ class TestFlashcardCreationAPI:
         """Set up test fixtures for each test."""
         # Create a temporary directory for test data
         self.test_dir = tempfile.mkdtemp()
-        
+
         # Override storage to use test directory
         app.dependency_overrides = {}
         self.test_storage = FileStorageService(self.test_dir)
-        
+
         # Create test client
         self.client = TestClient(app)
 
@@ -33,18 +29,16 @@ class TestFlashcardCreationAPI:
         """Clean up after each test."""
         # Clean up test directory
         import shutil
+
         shutil.rmtree(self.test_dir, ignore_errors=True)
-        
+
         # Reset dependency overrides
         app.dependency_overrides = {}
 
     def test_create_flashcard_success(self):
         """Test successful flashcard creation through API."""
         # Arrange
-        flashcard_data = {
-            "front": "Hello",
-            "back": "Hola"
-        }
+        flashcard_data = {"front": "Hello", "back": "Hola"}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -63,10 +57,7 @@ class TestFlashcardCreationAPI:
     def test_create_flashcard_with_empty_front(self):
         """Test API validation for empty front content."""
         # Arrange
-        flashcard_data = {
-            "front": "",
-            "back": "Hola"
-        }
+        flashcard_data = {"front": "", "back": "Hola"}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -80,10 +71,7 @@ class TestFlashcardCreationAPI:
     def test_create_flashcard_with_empty_back(self):
         """Test API validation for empty back content."""
         # Arrange
-        flashcard_data = {
-            "front": "Hello",
-            "back": ""
-        }
+        flashcard_data = {"front": "Hello", "back": ""}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -97,9 +85,7 @@ class TestFlashcardCreationAPI:
     def test_create_flashcard_with_missing_front(self):
         """Test API validation for missing front field."""
         # Arrange
-        flashcard_data = {
-            "back": "Hola"
-        }
+        flashcard_data = {"back": "Hola"}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -112,9 +98,7 @@ class TestFlashcardCreationAPI:
     def test_create_flashcard_with_missing_back(self):
         """Test API validation for missing back field."""
         # Arrange
-        flashcard_data = {
-            "front": "Hello"
-        }
+        flashcard_data = {"front": "Hello"}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -127,10 +111,7 @@ class TestFlashcardCreationAPI:
     def test_create_flashcard_with_whitespace_content(self):
         """Test API handles whitespace-only content appropriately."""
         # Arrange
-        flashcard_data = {
-            "front": "   ",
-            "back": "   "
-        }
+        flashcard_data = {"front": "   ", "back": "   "}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -141,10 +122,7 @@ class TestFlashcardCreationAPI:
     def test_create_flashcard_strips_whitespace(self):
         """Test that API strips leading/trailing whitespace."""
         # Arrange
-        flashcard_data = {
-            "front": "  Hello  ",
-            "back": "  Hola  "
-        }
+        flashcard_data = {"front": "  Hello  ", "back": "  Hola  "}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -159,11 +137,8 @@ class TestFlashcardCreationAPI:
         """Test creating flashcard with maximum length content."""
         # Arrange
         long_front = "A" * 500  # Max allowed length
-        long_back = "B" * 500   # Max allowed length
-        flashcard_data = {
-            "front": long_front,
-            "back": long_back
-        }
+        long_back = "B" * 500  # Max allowed length
+        flashcard_data = {"front": long_front, "back": long_back}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -178,10 +153,7 @@ class TestFlashcardCreationAPI:
         """Test API rejects content exceeding maximum length."""
         # Arrange
         too_long_front = "A" * 501  # Exceeds max length
-        flashcard_data = {
-            "front": too_long_front,
-            "back": "Valid back"
-        }
+        flashcard_data = {"front": too_long_front, "back": "Valid back"}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
@@ -194,7 +166,7 @@ class TestFlashcardCreationAPI:
         # Arrange
         flashcard_data = {
             "front": "¿Cómo estás? 你好! 🎉",
-            "back": "How are you? Hello! 🎊"
+            "back": "How are you? Hello! 🎊",
         }
 
         # Act
@@ -212,7 +184,7 @@ class TestFlashcardCreationAPI:
         response = self.client.post(
             "/api/flashcards",
             data="invalid json",
-            headers={"Content-Type": "application/json"}
+            headers={"Content-Type": "application/json"},
         )
 
         # Assert
@@ -227,7 +199,7 @@ class TestFlashcardCreationAPI:
         response = self.client.post(
             "/api/flashcards",
             data=flashcard_data,
-            headers={"Content-Type": "application/x-www-form-urlencoded"}
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
 
         # Assert
@@ -240,7 +212,7 @@ class TestFlashcardCreationAPI:
         flashcards = [
             {"front": "Hello", "back": "Hola"},
             {"front": "Goodbye", "back": "Adiós"},
-            {"front": "Thank you", "back": "Gracias"}
+            {"front": "Thank you", "back": "Gracias"},
         ]
 
         # Act & Assert
@@ -259,31 +231,29 @@ class TestFlashcardCreationAPI:
     def test_create_flashcard_cors_headers(self):
         """Test that CORS headers are properly set for flashcard creation."""
         # Arrange
-        flashcard_data = {
-            "front": "Test",
-            "back": "Prueba"
-        }
+        flashcard_data = {"front": "Test", "back": "Prueba"}
 
         # Act
         response = self.client.post(
             "/api/flashcards",
             json=flashcard_data,
-            headers={"Origin": "http://localhost:8080"}
+            headers={"Origin": "http://localhost:8080"},
         )
 
         # Assert
         assert response.status_code == 201
         # CORS headers should be present (handled by FastAPI CORS middleware)
-        assert "access-control-allow-origin" in response.headers or response.status_code == 201
+        assert (
+            "access-control-allow-origin" in response.headers
+            or response.status_code == 201
+        )
 
     def test_create_flashcard_response_time(self):
         """Test that flashcard creation responds within acceptable time."""
         # Arrange
         import time
-        flashcard_data = {
-            "front": "Performance Test",
-            "back": "Prueba de Rendimiento"
-        }
+
+        flashcard_data = {"front": "Performance Test", "back": "Prueba de Rendimiento"}
 
         # Act
         start_time = time.time()
@@ -293,15 +263,14 @@ class TestFlashcardCreationAPI:
         # Assert
         assert response.status_code == 201
         response_time = end_time - start_time
-        assert response_time < 0.3  # Should respond within 300ms (constitution requirement)
+        assert (
+            response_time < 0.3
+        )  # Should respond within 300ms (constitution requirement)
 
     def test_create_flashcard_persists_to_storage(self):
         """Test that created flashcard is actually persisted to storage."""
         # Arrange
-        flashcard_data = {
-            "front": "Persistence Test",
-            "back": "Prueba de Persistencia"
-        }
+        flashcard_data = {"front": "Persistence Test", "back": "Prueba de Persistencia"}
 
         # Act
         response = self.client.post("/api/flashcards", json=flashcard_data)
