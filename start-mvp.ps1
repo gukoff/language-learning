@@ -47,9 +47,33 @@ Write-Host "   Frontend UI: http://localhost:3000" -ForegroundColor Gray
 Write-Host ""
 Write-Host "📖 For detailed testing instructions, see: MVP-TESTING-GUIDE.md" -ForegroundColor Cyan
 
-# Optionally start backend automatically
-$startBackend = Read-Host "`nWould you like to start the backend server now? (y/n)"
-if ($startBackend -eq 'y' -or $startBackend -eq 'Y') {
-    Write-Host "`n🔧 Starting backend server..." -ForegroundColor Cyan
-    python -m uvicorn simple_server:app --reload --port 8000
+$startServers = Read-Host "`nWould you like to start both backend and frontend servers now? (y/n)"
+if ($startServers -eq 'y' -or $startServers -eq 'Y') {
+    Write-Host "`n🔧 Starting servers..." -ForegroundColor Cyan
+    Write-Host "Backend: http://localhost:8000/docs" -ForegroundColor Green
+    Write-Host "Frontend: http://localhost:3000" -ForegroundColor Green
+    Write-Host "`nPress Ctrl+C to stop both servers" -ForegroundColor Yellow
+    
+    # Start backend in background job
+    $backendJob = Start-Job -ScriptBlock {
+        python -m uvicorn simple_server:app --reload --port 8000
+    }
+    
+    # Start frontend in background job
+    $frontendJob = Start-Job -ScriptBlock {
+        Set-Location frontend
+        python -m http.server 3000
+    }
+    
+    # Wait for user to stop
+    try {
+        Write-Host "`nBoth servers are running. Press any key to stop..." -ForegroundColor Cyan
+        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    } finally {
+        # Clean up jobs
+        Write-Host "`n🛑 Stopping servers..." -ForegroundColor Yellow
+        Stop-Job $backendJob, $frontendJob -ErrorAction SilentlyContinue
+        Remove-Job $backendJob, $frontendJob -ErrorAction SilentlyContinue
+        Write-Host "✅ Servers stopped" -ForegroundColor Green
+    }
 }
