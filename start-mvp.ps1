@@ -52,7 +52,6 @@ if ($startServers -eq 'y' -or $startServers -eq 'Y') {
     Write-Host "`n🔧 Starting servers..." -ForegroundColor Cyan
     Write-Host "Backend: http://localhost:8000/docs" -ForegroundColor Green
     Write-Host "Frontend: http://localhost:3000" -ForegroundColor Green
-    Write-Host "`nPress Ctrl+C to stop both servers" -ForegroundColor Yellow
     
     # Start backend in background job
     $backendJob = Start-Job -ScriptBlock {
